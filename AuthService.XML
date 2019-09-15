@@ -1,0 +1,287 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AuthService</name>
+    </assembly>
+    <members>
+        <member name="T:AuthService.SwaggerConfig">
+            <summary>
+            Swagger configuration class.
+            </summary>
+        </member>
+        <member name="M:AuthService.SwaggerConfig.Register">
+            <summary>
+            Swagger registration method.
+            </summary>
+        </member>
+        <member name="T:AuthService.WebApiConfig">
+            <summary>
+            Web API configuration.
+            </summary>
+        </member>
+        <member name="M:AuthService.WebApiConfig.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Web API registration method.
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="T:AuthService.Controllers.AccessController">
+            <summary>
+            User access controller.
+            </summary>
+        </member>
+        <member name="M:AuthService.Controllers.AccessController.GetUserDetails">
+            <summary>
+            Gets the current user details.
+            </summary>
+            <remarks>
+            Retrieves all useful account details for the current user.
+            </remarks>
+        </member>
+        <member name="M:AuthService.Controllers.AccessController.IsUserInRole(System.String)">
+            <summary>
+            Checks if the current user is in a specific role.
+            </summary>
+            <remarks>
+            Verifies whether the current user is in the specified role in Active Directory.
+            </remarks>
+            <param name="role">AD Role Name</param>
+        </member>
+        <member name="M:AuthService.Controllers.AccessController.IsUserInOneRole(System.String)">
+            <summary>
+            Checks if the current user is at least in one role listed.
+            </summary>
+            <remarks>
+            Verifies whether the current user is in one or more specified roles in Active Directory.
+            </remarks>
+            <param name="roles">Comma-separated list of AD role names</param>
+        </member>
+        <member name="M:AuthService.Controllers.AccessController.IsUserInEachRole(System.String)">
+            <summary>
+            Checks whether the current user is in each role listed.
+            </summary>
+            <remarks>
+            Verifies whether the current user is in each of the specified roles in Active Directory.
+            </remarks>
+            <param name="roles">Comma-separated list of AD role names</param>
+        </member>
+        <member name="M:AuthService.Controllers.AccessController.GetUserGroups">
+            <summary>
+            Retreieves the list of groups the current user is a member of.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AuthService.Extensions">
+            <summary>
+            Public extensions
+            </summary>
+        </member>
+        <member name="M:AuthService.Extensions.GetDomain(System.Security.Principal.IIdentity)">
+            <summary>
+            Retrieves domain name from the user's full name
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuthService.Extensions.GetLogin(System.Security.Principal.IIdentity)">
+            <summary>
+            Retrieves user's login name from the full name
+            </summary>
+            <param name="identity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuthService.WebApiApplication">
+            <summary>
+            Application class.
+            </summary>
+        </member>
+        <member name="M:AuthService.WebApiApplication.Application_Start">
+            <summary>
+            Application Start event handler.
+            </summary>
+        </member>
+        <member name="M:AuthService.WebApiApplication.Application_BeginRequest(System.Object,System.EventArgs)">
+            <summary>
+            Application BeginRequest event handler.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:AuthService.Models.UserInfo">
+            <summary>
+            User account details. It is also a normal response for request AccessController.GetUserDetails
+            </summary>
+        </member>
+        <member name="M:AuthService.Models.UserInfo.#ctor(System.Security.Principal.IIdentity)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="identity">user identity</param>
+        </member>
+        <member name="P:AuthService.Models.UserInfo.fullName">
+            <summary>
+            Full name of the current user (including the domain)
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInfo.domain">
+            <summary>
+            User domain
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInfo.name">
+            <summary>
+            Short user name (without domain)
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInfo.isAnonymous">
+            <summary>
+            Indicates when the user account is anonymous
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInfo.isAuthenticated">
+            <summary>
+            Indicates when the user account is authenticated
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInfo.isGuest">
+            <summary>
+            Indicates when the user account is a guest
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInfo.isSystem">
+            <summary>
+            Indicates when it is a system user
+            </summary>
+        </member>
+        <member name="M:AuthService.Models.UserGroup.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserGroup.id">
+            <summary>
+            Group id
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserGroup.name">
+            <summary>
+            Group name
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserGroup.ADName">
+            <summary>
+            AD group name
+            </summary>
+        </member>
+        <member name="T:AuthService.Models.UserGroupRemote">
+            <summary>
+            Response from Java service
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserGroupRemote.GROUP_ID">
+            <summary>
+            Group id
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserGroupRemote.GROUP_NM">
+            <summary>
+            Group name
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserGroupRemote.AD_GROUP_NM">
+            <summary>
+            AD group name
+            </summary>
+        </member>
+        <member name="T:AuthService.Models.UserInRole">
+            <summary>
+            Normal response for HTTP request AccessController.IsUserInRole
+            </summary>
+        </member>
+        <member name="M:AuthService.Models.UserInRole.#ctor(System.String,System.Boolean,System.Security.Principal.IIdentity)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInRole.role">
+            <summary>
+            Role being verified against
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInRole.isInRole">
+            <summary>
+            Verification result
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInRole.user">
+            <summary>
+            Current user details
+            </summary>
+        </member>
+        <member name="T:AuthService.Models.UserInOneRole">
+            <summary>
+            Normal response for HTTP request AccessController.IsUserInOneRole
+            </summary>
+        </member>
+        <member name="M:AuthService.Models.UserInOneRole.#ctor(System.String[],System.Boolean,System.Security.Principal.IIdentity)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInOneRole.roles">
+            <summary>
+            Role being verified against
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInOneRole.isInRole">
+            <summary>
+            Verification result
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInOneRole.user">
+            <summary>
+            Current user details
+            </summary>
+        </member>
+        <member name="T:AuthService.Models.InRoleInfo">
+            <summary>
+            Describes belonging to one user group.
+            </summary>
+        </member>
+        <member name="M:AuthService.Models.InRoleInfo.#ctor(System.String,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.InRoleInfo.role">
+            <summary>
+            Role name.
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.InRoleInfo.isInRole">
+            <summary>
+            Verification result
+            </summary>
+        </member>
+        <member name="T:AuthService.Models.UserInEachRole">
+            <summary>
+            Normal response for HTTP request AccessController.IsUserInEachRole
+            </summary>
+        </member>
+        <member name="M:AuthService.Models.UserInEachRole.#ctor(AuthService.Models.InRoleInfo[],System.Security.Principal.IIdentity)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInEachRole.result">
+            <summary>
+            Role being verified against
+            </summary>
+        </member>
+        <member name="P:AuthService.Models.UserInEachRole.user">
+            <summary>
+            Current user details
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<project name="ILIM.CMM" default="usage">
+
+  <!-- import properties-->
+  <include buildfile="..\..\build\build-share.properties" />
+  <include buildfile="build.properties" />
+
+  <!--===========================================================================
+    | USAGE
+    ===========================================================================-->
+  <target name="usage">
+
+    <echo message="${project::get-name()} build file"/>
+    <echo message="------------------------------------------------------"/>
+    <echo message=""/>
+    <echo message="Targets :"/>
+    <echo message=""/>
+    <echo message="clean        --> cleans the build directory"/>
+    <echo message="compile      --> compiles all subprojects/dependencies"/>
+    <echo message="deploy       --> deploy website"/>
+    <echo message=""/>
+    <echo message=""/>
+    <echo message="Options"/>
+    <echo message="------------------------------------------------------"/>
+    <echo message="debug        --> include debugging info with compile (default=${debug})"/>
+    <echo message="precompile   --> precompile/deploy precompiled web (default=${precompile})"/>
+    <echo message="iis.server   --> iis to deploy to (default=${iis.server})"/>
+    <echo message="iis.dir      --> iis virtual directory (default=${iis.dir})"/>
+    <echo message="deploy.dir   --> dir to copy site to (default=${deploy.dir})"/>
+    <echo message="config.file  --> config file to deploy (default=${config.file})"/>
+    <echo message="env          --> set above properties for DEV | UAT | PROD"/>
+
+  </target>
+
+  <!--===========================================================================
+    | CLEAN
+    ===========================================================================-->
+
+  <target name="clean" description="remove all build products">
+    <delete dir="build"  if="${directory::exists('build')}" />
+  </target>
+
+
+  <!--============================================================================
+    | COMPILE
+    ============================================================================-->
+
+
+  <target name="compile" description="compiles all subprojects/dependencies and precompiles webapp if precompile flag is set">
+
+    <call target="set.deploy.vars" if="${property::exists('env')}" />
+    <call target="compile.AuthService" />
+
+
+  </target>
+
+  <!--============================================================================
+    | DEPLOY
+    ============================================================================-->
+
+
+  <!--===========================================================================
+    | INIT
+    ===========================================================================-->
+
+  <target name="init">
+    <mkdir dir="build" />
+
+    <!--copy 3rd party dlls-->
+    <copy todir = "build">
+      <fileset refid="lib.files" />
+    </copy>
+
+  </target>
+
+  <!--============================================================================
+    | COMPILE DEPENDENCIES/SUBPROJECTS
+    ============================================================================-->
+
+  <target name="compile.AuthService">
+    <exec program="${webapps.root.dir}\${cvs.module}\build\Build.bat">
+    </exec>
+  </target>
+
+</project>
